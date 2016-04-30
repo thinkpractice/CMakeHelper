@@ -2,6 +2,7 @@
 #define MAIN_WINDOW_CONTROLLER_H
 
 #include <vector>
+#include <app/Messenger.h>
 #include <storage/Path.h>
 #include <support/ObjectList.h>
 #include <support/String.h>
@@ -10,7 +11,7 @@
 class MainWindowController : RunnerInterfaceObserver
 {
 	public:
-		MainWindowController(RunnerInterface* runnerInterface = new RunnerInterface());
+		MainWindowController(BMessenger& windowMessenger, RunnerInterface* runnerInterface = new RunnerInterface());
 		virtual ~MainWindowController();
 	
 	public:
@@ -24,6 +25,7 @@ class MainWindowController : RunnerInterfaceObserver
 		virtual void ErrorReceived(ErrorMessage& errorMessage);
 		
 	private:
+		BMessenger _windowMessenger;
 		BPath _makeFileLocation;
 		std::vector<ErrorMessage> _errorsAndWarnings;
 		RunnerInterface* _runnerInterface;

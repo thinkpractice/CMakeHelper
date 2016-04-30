@@ -1,8 +1,9 @@
 #include "MainWindowController.h"
 #include <storage/FilePanel.h>
 
-MainWindowController::MainWindowController(RunnerInterface* runnerInterface)
-						: _runnerInterface(runnerInterface)
+MainWindowController::MainWindowController(BMessenger& windowMessenger,RunnerInterface* runnerInterface)
+						:_windowMessenger(windowMessenger),
+						 _runnerInterface(runnerInterface)
 {
 	_runnerInterface->SetObserver(this);
 }
@@ -14,7 +15,7 @@ MainWindowController::~MainWindowController()
 
 void MainWindowController::ShowOpenFileDialog()
 {
-	BFilePanel* filePanel = new BFilePanel(B_OPEN_PANEL, NULL, NULL, B_DIRECTORY_NODE);
+	BFilePanel* filePanel = new BFilePanel(B_OPEN_PANEL, &_windowMessenger, NULL, B_DIRECTORY_NODE);
 	filePanel->Show();
 }
 

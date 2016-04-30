@@ -1,7 +1,7 @@
 #include "MainWindow.h"
 #include <app/Application.h>
 #include <app/Message.h>
-
+#include <app/Messenger.h>
 #include <interface/Button.h>
 #include <interface/TextControl.h>
 #include <interface/Box.h>
@@ -11,7 +11,8 @@
 MainWindow::MainWindow(BRect frame)
 				: BWindow(frame, "CMakeHelper", B_TITLED_WINDOW, 0)
 {
-	_windowController = new MainWindowController();
+	BMessenger windowMessenger(this);
+	_windowController = new MainWindowController(windowMessenger);
 	
 	BGroupLayout* verticalGroup = new BGroupLayout(B_VERTICAL);
 	verticalGroup->SetInsets(0,0,0,0);
