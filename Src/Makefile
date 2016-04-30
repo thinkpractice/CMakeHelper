@@ -150,6 +150,33 @@ CMakeHelper.cpp.s:
 	$(MAKE) -f CMakeFiles/CMakeHelper.dir/build.make CMakeFiles/CMakeHelper.dir/CMakeHelper.cpp.s
 .PHONY : CMakeHelper.cpp.s
 
+ErrorMessage.o: ErrorMessage.cpp.o
+
+.PHONY : ErrorMessage.o
+
+# target to build an object file
+ErrorMessage.cpp.o:
+	$(MAKE) -f CMakeFiles/CMakeHelper.dir/build.make CMakeFiles/CMakeHelper.dir/ErrorMessage.cpp.o
+.PHONY : ErrorMessage.cpp.o
+
+ErrorMessage.i: ErrorMessage.cpp.i
+
+.PHONY : ErrorMessage.i
+
+# target to preprocess a source file
+ErrorMessage.cpp.i:
+	$(MAKE) -f CMakeFiles/CMakeHelper.dir/build.make CMakeFiles/CMakeHelper.dir/ErrorMessage.cpp.i
+.PHONY : ErrorMessage.cpp.i
+
+ErrorMessage.s: ErrorMessage.cpp.s
+
+.PHONY : ErrorMessage.s
+
+# target to generate assembly for a file
+ErrorMessage.cpp.s:
+	$(MAKE) -f CMakeFiles/CMakeHelper.dir/build.make CMakeFiles/CMakeHelper.dir/ErrorMessage.cpp.s
+.PHONY : ErrorMessage.cpp.s
+
 MainWindow.o: MainWindow.cpp.o
 
 .PHONY : MainWindow.o
@@ -204,6 +231,33 @@ MainWindowController.cpp.s:
 	$(MAKE) -f CMakeFiles/CMakeHelper.dir/build.make CMakeFiles/CMakeHelper.dir/MainWindowController.cpp.s
 .PHONY : MainWindowController.cpp.s
 
+RunnerInterface.o: RunnerInterface.cpp.o
+
+.PHONY : RunnerInterface.o
+
+# target to build an object file
+RunnerInterface.cpp.o:
+	$(MAKE) -f CMakeFiles/CMakeHelper.dir/build.make CMakeFiles/CMakeHelper.dir/RunnerInterface.cpp.o
+.PHONY : RunnerInterface.cpp.o
+
+RunnerInterface.i: RunnerInterface.cpp.i
+
+.PHONY : RunnerInterface.i
+
+# target to preprocess a source file
+RunnerInterface.cpp.i:
+	$(MAKE) -f CMakeFiles/CMakeHelper.dir/build.make CMakeFiles/CMakeHelper.dir/RunnerInterface.cpp.i
+.PHONY : RunnerInterface.cpp.i
+
+RunnerInterface.s: RunnerInterface.cpp.s
+
+.PHONY : RunnerInterface.s
+
+# target to generate assembly for a file
+RunnerInterface.cpp.s:
+	$(MAKE) -f CMakeFiles/CMakeHelper.dir/build.make CMakeFiles/CMakeHelper.dir/RunnerInterface.cpp.s
+.PHONY : RunnerInterface.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -216,12 +270,18 @@ help:
 	@echo "... CMakeHelper.o"
 	@echo "... CMakeHelper.i"
 	@echo "... CMakeHelper.s"
+	@echo "... ErrorMessage.o"
+	@echo "... ErrorMessage.i"
+	@echo "... ErrorMessage.s"
 	@echo "... MainWindow.o"
 	@echo "... MainWindow.i"
 	@echo "... MainWindow.s"
 	@echo "... MainWindowController.o"
 	@echo "... MainWindowController.i"
 	@echo "... MainWindowController.s"
+	@echo "... RunnerInterface.o"
+	@echo "... RunnerInterface.i"
+	@echo "... RunnerInterface.s"
 .PHONY : help
 
 

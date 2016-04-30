@@ -1,6 +1,7 @@
 #include "RunnerInterface.h"
 
 RunnerInterface::RunnerInterface()
+					: _runnerInterfaceObserver(NULL)
 {
 }
 
@@ -8,10 +9,15 @@ RunnerInterface::~RunnerInterface()
 {
 }
 
-RunnerInterface::Run(BPath& path)
+void RunnerInterface::SetObserver(RunnerInterfaceObserver* observer)
+{
+	_runnerInterfaceObserver = observer;
+}
+
+void RunnerInterface::Run(BPath& path)
 {
 }
 
-RunnerInterface::Clean(BPath& path)
+void RunnerInterface::Clean(BPath& path)
 {
 }
