@@ -3,7 +3,6 @@
 #include <app/Message.h>
 #include <app/Messenger.h>
 #include <interface/Button.h>
-#include <interface/TextControl.h>
 #include <interface/Box.h>
 #include <interface/ListView.h>
 #include <storage/Entry.h>
@@ -47,20 +46,27 @@ void MainWindow::MessageReceived(BMessage *message)
 			_windowController->SetMakeFileLocation(path);
 		}
 		break;		
-		case MessageConstants::kBrowseFileMessage:
+		case kBrowseFileMessage:
 		{
 			_windowController->ShowOpenFileDialog();
 		}
 		break;
-		case MessageConstants::kRunMessage:
+		case kRunMessage:
 		{
 			_windowController->RunMake();
 		}
 		break;
-		case MessageConstants::kCleanMessage:
+		case kCleanMessage:
 		{
 			_windowController->CleanMake();
 		}
+		break;
+		case kPropertyChanged:
+		{			
+			BPath path = _windowController->GetMakeFileLocation();
+			_filePathControl->SetText(path.Path());
+		}
+		break;
 		default:
 			BWindow::MessageReceived(message);
 		break;
@@ -77,15 +83,15 @@ void MainWindow::BuildFileLayout(BGroupLayout* horizontalGroup)
 {	
 	horizontalGroup->SetInsets(5,5,5,5);
 	
-	BTextControl* filePathControl = new BTextControl("Makefile Path:", "", new BMessage());
-	horizontalGroup->AddView(filePathControl);
+	_filePathControl = new BTextControl("Makefile Path:", "", new BMessage());
+	horizontalGroup->AddView(_filePathControl);
 	
-	BButton* browseButton = new BButton("Browse..", new BMessage(MessageConstants::kBrowseFileMessage));
+	BButton* browseButton = new BButton("Browse..", new BMessage(kBrowseFileMessage));
 	horizontalGroup->AddView(browseButton);
 	
-	BButton* runButton = new BButton("Run", new BMessage(MessageConstants::kRunMessage));
+	BButton* runButton = new BButton("Run", new BMessage(kRunMessage));
 	horizontalGroup->AddView(runButton);
 	
-	BButton* cleanButton = new BButton("Clean", new BMessage(MessageConstants::kCleanMessage));
+	BButton* cleanButton = new BButton("Clean", new BMessage(kCleanMessage));
 	horizontalGroup->AddView(cleanButton);	
 }

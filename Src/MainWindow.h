@@ -4,6 +4,7 @@
 #include <interface/Rect.h>
 #include <interface/Window.h>
 #include <interface/GroupLayout.h>
+#include <interface/TextControl.h>
 #include "MainWindowController.h"
 
 class MainWindow : public BWindow
@@ -20,6 +21,7 @@ class MainWindow : public BWindow
 	
 	private:		
 		MainWindowController* _windowController;
+		BTextControl* _filePathControl;
 };
 
 #endif

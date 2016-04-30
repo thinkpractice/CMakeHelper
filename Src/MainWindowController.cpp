@@ -1,5 +1,6 @@
 #include "MainWindowController.h"
 #include <storage/FilePanel.h>
+#include "Constants.h"
 
 MainWindowController::MainWindowController(BMessenger& windowMessenger,RunnerInterface* runnerInterface)
 						:_windowMessenger(windowMessenger),
@@ -32,6 +33,10 @@ void MainWindowController::CleanMake()
 void MainWindowController::SetMakeFileLocation(BPath& path)
 {
 	_makeFileLocation = path;
+	
+	BMessage* message = new BMessage(kPropertyChanged);
+	message->AddString(kPropertyName, "MakeFileLocation");
+	_windowMessenger.SendMessage(message);
 }
 
 BPath MainWindowController::GetMakeFileLocation()
