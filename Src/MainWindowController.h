@@ -4,23 +4,25 @@
 #include <storage/Path.h>
 #include <support/ObjectList.h>
 #include <support/String.h>
+#include "RunnerInterface.h"
 
 class MainWindowController
 {
 	public:
-		MainWindowController();
+		MainWindowController(RunnerInterface* runnerInterface = new RunnerInterface());
 		virtual ~MainWindowController();
 	
 	public:
-		void SetMakeFileLocation(BPath& path);
-		BPath GetMakeFileLocation();
-		
 		void RunMake();
 		void CleanMake();
+		
+		void SetMakeFileLocation(BPath& path);
+		BPath GetMakeFileLocation();
 		
 	private:
 		BPath _makeFileLocation;
 		BObjectList<BString>* _errorsAndWarnings;
+		RunnerInterface* _runnerInterface;
 };
 
 #endif
