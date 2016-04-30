@@ -4,7 +4,7 @@
 #include <interface/Rect.h>
 #include <interface/Window.h>
 
-class MainWindow : BWindow
+class MainWindow : public BWindow
 {
 	public:
 		MainWindow(BRect frame);

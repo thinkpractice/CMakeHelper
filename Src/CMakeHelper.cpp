@@ -4,7 +4,7 @@
 CMakeHelper::CMakeHelper()
 				: BApplication("application/x-vnd.CMakeHelper")
 {
-	BRect mainWindowRect(100.0f, 100.0f, 400f, 400f);
+	BRect mainWindowRect(100.0f, 100.0f, 600.0f, 400.0f);
 	MainWindow* mainWindow = new MainWindow(mainWindowRect);
 	mainWindow->Show(); 
 }
