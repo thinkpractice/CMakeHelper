@@ -6,6 +6,7 @@
 #include <interface/TextControl.h>
 #include <interface/Box.h>
 #include <interface/ListView.h>
+#include <storage/Entry.h>
 #include "Constants.h"
 
 MainWindow::MainWindow(BRect frame)
@@ -38,6 +39,14 @@ void MainWindow::MessageReceived(BMessage *message)
 {
 	switch(message->what)
 	{
+		case B_REFS_RECEIVED:
+		{
+			entry_ref directoryRef;
+			message->FindRef("refs", &directoryRef);
+			BPath path(&directoryRef); 
+			_windowController->SetMakeFileLocation(path);
+		}
+		break;		
 		case MessageConstants::kBrowseFileMessage:
 		{
 			_windowController->ShowOpenFileDialog();
