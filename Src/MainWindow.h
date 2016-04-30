@@ -9,6 +9,8 @@ class MainWindow : public BWindow
 	public:
 		MainWindow(BRect frame);
 		virtual ~MainWindow();
+		
+		virtual bool QuitRequested();
 };
 
 #endif
