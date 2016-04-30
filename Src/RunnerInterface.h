@@ -13,4 +13,6 @@ class RunnerInterface
 		virtual void Run(BPath& path);
 		virtual void Clean(BPath& path);
 		
-}
+};
+
+#endif
