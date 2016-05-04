@@ -95,13 +95,11 @@ void MainWindow::HandlePropertyChanged(BMessage* message)
 	}
 	else if (whichProperty == kErrorListProperty)
 	{
-		std::vector<ErrorMessage> messages =  _windowController->ErrorMessages();
-		ErrorMessage errorMessage = messages[messages.size()-1];
-		messages.pop_back();
-		
-		BStringItem* errorItem = new BStringItem(errorMessage.Message()); 
-		_errorsListView->AddItem(errorItem);
-		
+		for (ErrorMessage errorMessage : _windowController->ErrorMessages())
+		{
+			BStringItem* errorItem = new BStringItem(errorMessage.Message()); 
+			_errorsListView->AddItem(errorItem);
+		}		
 	}
 }
 

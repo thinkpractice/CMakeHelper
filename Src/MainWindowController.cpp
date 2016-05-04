@@ -16,13 +16,14 @@ MainWindowController::~MainWindowController()
 
 void MainWindowController::ShowOpenFileDialog()
 {
-	BFilePanel* filePanel = new BFilePanel(B_OPEN_PANEL, &_windowMessenger, NULL, B_DIRECTORY_NODE);
+	BFilePanel* filePanel = new BFilePanel(B_OPEN_PANEL, &_windowMessenger, NULL);
 	filePanel->Show();
 }
 
 void MainWindowController::RunMake()
 {
 	_runnerInterface->Run(_makeFileLocation);
+	NotifyPropertyChanged(kErrorListProperty);
 }
 
 void MainWindowController::CleanMake()
@@ -56,5 +57,5 @@ void MainWindowController::NotifyPropertyChanged(const char* propertyName)
 void MainWindowController::ErrorReceived(ErrorMessage& errorMessage)
 {
 	_errorsAndWarnings.push_back(errorMessage);
-	NotifyPropertyChanged(kErrorListProperty);
+	//NotifyPropertyChanged(kErrorListProperty);
 }
