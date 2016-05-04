@@ -31,10 +31,9 @@ void RunnerInterface::Run(BPath& path)
 BString RunnerInterface::exec(const char* cmd) 
 {
 	std::stringstream buffer;
-	//std::streambuf* old = std::cerr.rdbuff(buffer.rdbuf());   
+	std::streambuf* old = std::cerr.rdbuf(buffer.rdbuf());  
 
-
-    std::shared_ptr<FILE> pipe(popen(cmd, "r"), pclose);
+	std::shared_ptr<FILE> pipe(popen(cmd, "r"), pclose);
     if (!pipe) 
     	throw std::runtime_error("popen() failed!");
     
@@ -46,9 +45,11 @@ BString RunnerInterface::exec(const char* cmd)
             result += buffer;
     }
     
-    std::string errors = buffer.str();
-    result << errors.c_str();
+    result = "error";
+    std::string errors = buffer.str(); 
+    result += errors.c_str();
     
+    std::cerr.rdbuf(old);
     return result;
 }
 
