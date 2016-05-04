@@ -5,6 +5,7 @@
 #include <interface/Button.h>
 #include <interface/Box.h>
 #include <interface/ListView.h>
+#include <interface/LayoutBuilder.h>
 #include <storage/Entry.h>
 #include "Constants.h"
 
@@ -13,20 +14,30 @@ MainWindow::MainWindow(BRect frame)
 {
 	BMessenger windowMessenger(this);
 	_windowController = new MainWindowController(windowMessenger);
+
+	_filePathControl = new BTextControl("Makefile Path:", "", new BMessage());
 	
-	BGroupLayout* verticalGroup = new BGroupLayout(B_VERTICAL);
-	verticalGroup->SetInsets(0,0,0,0);
-	SetLayout(verticalGroup);
+	BButton* browseButton = new BButton("Browse..", new BMessage(kBrowseFileMessage));
+	BButton* runButton = new BButton("Run", new BMessage(kRunMessage));
+	BButton* cleanButton = new BButton("Clean", new BMessage(kCleanMessage));
 	
-	BGroupLayout* horizontalGroup = new BGroupLayout(B_HORIZONTAL);
-	verticalGroup->AddItem(horizontalGroup);
-	BuildFileLayout(horizontalGroup);		
-				
 	BBox* errorsBox = new BBox("Errors & Warnings");
-	verticalGroup->AddView(errorsBox);
-	
 	BListView* errorsListView = new BListView();
 	errorsBox->AddChild(errorsListView);	
+	
+	BLayoutBuilder::Group<>(this, B_VERTICAL, 0)
+		.SetInsets(0)
+		.AddGroup(B_HORIZONTAL,1)
+			.Add(_filePathControl)
+			.Add(browseButton)
+		.End()
+		.AddGroup(B_HORIZONTAL,2)
+			.Add(errorsBox)
+		.End()
+		.AddGroup(B_HORIZONTAL,1)
+			.Add(runButton)
+			.Add(cleanButton)	
+		.End();
 }
 
 MainWindow::~MainWindow()
@@ -77,21 +88,4 @@ bool MainWindow::QuitRequested()
 {
 	be_app->PostMessage(B_QUIT_REQUESTED);
 	return BWindow::QuitRequested();	
-}
-
-void MainWindow::BuildFileLayout(BGroupLayout* horizontalGroup)
-{	
-	horizontalGroup->SetInsets(5,5,5,5);
-	
-	_filePathControl = new BTextControl("Makefile Path:", "", new BMessage());
-	horizontalGroup->AddView(_filePathControl);
-	
-	BButton* browseButton = new BButton("Browse..", new BMessage(kBrowseFileMessage));
-	horizontalGroup->AddView(browseButton);
-	
-	BButton* runButton = new BButton("Run", new BMessage(kRunMessage));
-	horizontalGroup->AddView(runButton);
-	
-	BButton* cleanButton = new BButton("Clean", new BMessage(kCleanMessage));
-	horizontalGroup->AddView(cleanButton);	
 }

@@ -15,9 +15,6 @@ class MainWindow : public BWindow
 		
 		virtual void MessageReceived(BMessage *message);		
 		virtual bool QuitRequested();
-		
-	private:
-		void BuildFileLayout(BGroupLayout* horizontalGroup);
 	
 	private:		
 		MainWindowController* _windowController;
