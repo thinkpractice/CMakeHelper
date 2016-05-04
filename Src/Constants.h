@@ -7,4 +7,7 @@ const uint32 kCleanMessage = 'CLms';
 const uint32 kPropertyChanged = 'PCms';
 static const char* kPropertyName = "kPropertyName";  
 
+static const char* kMakeFileProperty = "MakeFileLocation";
+static const char* kErrorListProperty = "ErrorList";
+
 #endif

@@ -33,10 +33,7 @@ void MainWindowController::CleanMake()
 void MainWindowController::SetMakeFileLocation(BPath& path)
 {
 	_makeFileLocation = path;
-	
-	BMessage* message = new BMessage(kPropertyChanged);
-	message->AddString(kPropertyName, "MakeFileLocation");
-	_windowMessenger.SendMessage(message);
+	NotifyPropertyChanged(kMakeFileProperty);	
 }
 
 BPath MainWindowController::GetMakeFileLocation()
@@ -44,7 +41,20 @@ BPath MainWindowController::GetMakeFileLocation()
 	return _makeFileLocation;
 }
 
+std::vector<ErrorMessage> MainWindowController::ErrorMessages()
+{
+	return _errorsAndWarnings;
+}
+
+void MainWindowController::NotifyPropertyChanged(const char* propertyName)
+{
+	BMessage* message = new BMessage(kPropertyChanged);
+	message->AddString(kPropertyName, propertyName);
+	_windowMessenger.SendMessage(message);
+}
+
 void MainWindowController::ErrorReceived(ErrorMessage& errorMessage)
 {
 	_errorsAndWarnings.push_back(errorMessage);
+	NotifyPropertyChanged(kErrorListProperty);
 }

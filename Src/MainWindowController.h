@@ -22,6 +22,9 @@ class MainWindowController : RunnerInterfaceObserver
 		void SetMakeFileLocation(BPath& path);
 		BPath GetMakeFileLocation();
 		
+		std::vector<ErrorMessage> ErrorMessages();
+		
+		void NotifyPropertyChanged(const char* propertyName);
 		virtual void ErrorReceived(ErrorMessage& errorMessage);
 		
 	private:

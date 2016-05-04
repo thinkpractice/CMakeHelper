@@ -15,5 +15,6 @@ file(GLOB CMakeHelperSrc
 link_directories("/boot/system/lib/x86")
 
 add_executable(CMakeHelper ${CMakeHelperSrc})
+target_compile_features(CMakeHelper PRIVATE cxx_range_for)
 target_link_libraries(CMakeHelper be translation tracker stdc++)
 

@@ -4,10 +4,11 @@
 #include <app/Messenger.h>
 #include <interface/Button.h>
 #include <interface/Box.h>
-#include <interface/ListView.h>
 #include <interface/LayoutBuilder.h>
+#include <interface/ListItem.h>
 #include <storage/Entry.h>
 #include "Constants.h"
+#include "ErrorMessage.h"
 
 MainWindow::MainWindow(BRect frame)
 				: BWindow(frame, "CMakeHelper", B_TITLED_WINDOW, 0)
@@ -22,8 +23,8 @@ MainWindow::MainWindow(BRect frame)
 	BButton* cleanButton = new BButton("Clean", new BMessage(kCleanMessage));
 	
 	BBox* errorsBox = new BBox("Errors & Warnings");
-	BListView* errorsListView = new BListView();
-	errorsBox->AddChild(errorsListView);	
+	_errorsListView = new BListView();
+	errorsBox->AddChild(_errorsListView);	
 	
 	BLayoutBuilder::Group<>(this, B_VERTICAL, 0)
 		.SetInsets(0)
@@ -74,13 +75,33 @@ void MainWindow::MessageReceived(BMessage *message)
 		break;
 		case kPropertyChanged:
 		{			
-			BPath path = _windowController->GetMakeFileLocation();
-			_filePathControl->SetText(path.Path());
+			HandlePropertyChanged(message);
 		}
 		break;
 		default:
 			BWindow::MessageReceived(message);
 		break;
+	}
+}
+
+void MainWindow::HandlePropertyChanged(BMessage* message)
+{
+	BString whichProperty;
+	message->FindString(kPropertyName, &whichProperty);
+	if (whichProperty == kMakeFileProperty)
+	{
+		BPath path = _windowController->GetMakeFileLocation();
+		_filePathControl->SetText(path.Path());
+	}
+	else if (whichProperty == kErrorListProperty)
+	{
+		std::vector<ErrorMessage> messages =  _windowController->ErrorMessages();
+		ErrorMessage errorMessage = messages[messages.size()-1];
+		messages.pop_back();
+		
+		BStringItem* errorItem = new BStringItem(errorMessage.Message()); 
+		_errorsListView->AddItem(errorItem);
+		
 	}
 }
 
