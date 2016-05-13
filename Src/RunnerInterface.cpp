@@ -6,6 +6,7 @@
 #include <sstream>
 #include <memory>
 #include <stdexcept>
+#include <support/StringList.h>
 
 RunnerInterface::RunnerInterface()
 					: _runnerInterfaceObserver(NULL)
@@ -24,34 +25,35 @@ void RunnerInterface::SetObserver(RunnerInterfaceObserver* observer)
 void RunnerInterface::Run(BPath& path)
 {
 	//BString error = exec("make");
-	BString error = exec("g++ MainWindow.cpp");
-	ErrorMessage errorMessage(error);
-	_runnerInterfaceObserver->ErrorReceived(errorMessage);
+	BString command = "make";
+	command += " 2>&1"; 
+	
+	BString errors = exec(command.String());
+	
+	BStringList errorList;
+	errors.Split("\n", false, errorList);
+	
+	for (int i = 0; i < errorList.CountStrings(); i++)
+	{
+		BString error = errorList.StringAt(i);
+		ErrorMessage errorMessage(error);
+		_runnerInterfaceObserver->ErrorReceived(errorMessage);
+	}
 }
 
 BString RunnerInterface::exec(const char* cmd) 
 {
-	std::stringstream buffer;
-	std::streambuf* old = std::cerr.rdbuf(buffer.rdbuf());  
-    
-    int i = system(cmd);
-	/*std::shared_ptr<FILE> pipe(popen(cmd, "r"), pclose);
+	std::shared_ptr<FILE> pipe(popen(cmd, "r"), pclose);
     if (!pipe) 
-    	throw std::runtime_error("popen() failed!");*/
+    	throw std::runtime_error("popen() failed!");
     
     BString result = "";
-    /*while (!feof(pipe.get())) 
+    while (!feof(pipe.get())) 
     {
     	char buffer[128];
         if (fgets(buffer, 128, pipe.get()) != NULL)
             result += buffer;
     }
-    */
-    result = "error";
-    std::string errors = buffer.str(); 
-    result += errors.c_str();
-    
-    std::cerr.rdbuf(old);
     return result;
 }
 
