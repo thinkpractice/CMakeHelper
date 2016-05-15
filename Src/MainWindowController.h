@@ -4,6 +4,7 @@
 #include <vector>
 #include <app/Messenger.h>
 #include <storage/Path.h>
+#include <storage/Entry.h>
 #include <support/ObjectList.h>
 #include <support/String.h>
 #include "RunnerInterface.h"
@@ -27,6 +28,9 @@ class MainWindowController : RunnerInterfaceObserver
 		
 		void NotifyPropertyChanged(const char* propertyName);
 		virtual void ErrorReceived(ErrorMessage& errorMessage);
+	
+	private:
+		void OpenFile(BEntry& filePath);
 		
 	private:
 		BMessenger _windowMessenger;

@@ -2,7 +2,7 @@
 #define ERROR_MESSAGE_H
 
 #include <support/String.h>
-#include <storage/Path.h>
+#include <storage/Entry.h>
 
 class ErrorMessage
 {
@@ -10,13 +10,13 @@ class ErrorMessage
 		ErrorMessage(BString& message);
 		virtual ~ErrorMessage();
 		
-		BPath FilePath();
+		BEntry FilePath();
 		uint32 LineNumber();
 		uint32 ColumnNumber();
 		BString Message();
 	
 	private:		
-		BPath _filePath;
+		BEntry _filePath;
 		uint32 _lineNumber;
 		uint32 _columnNumber;
 		BString _message;

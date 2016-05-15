@@ -7,7 +7,6 @@
 #include <interface/LayoutBuilder.h>
 #include <interface/ListItem.h>
 #include <storage/Entry.h>
-#include <iostream>
 #include "Constants.h"
 #include "ErrorMessage.h"
 
@@ -77,7 +76,7 @@ void MainWindow::MessageReceived(BMessage *message)
 		break;
 		case kItemClickedMessage:
 		{
-			int32 selectedIndex = _errorsListView->CurrentSelection();
+			int32 selectedIndex = 0; //_errorsListView->CurrentSelection();
 			_windowController->ErrorMessageClicked(selectedIndex);
 		}
 		break;

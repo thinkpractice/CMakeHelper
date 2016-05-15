@@ -1,6 +1,5 @@
 #include "MainWindowController.h"
 #include <storage/FilePanel.h>
-#include <storage/Entry.h>
 #include <Roster.h>
 #include <iostream>
 #include "Constants.h"
@@ -36,14 +35,12 @@ void MainWindowController::CleanMake()
 
 void MainWindowController::ErrorMessageClicked(int32 listIndex)
 {
-	std::cout << "Item Clicked at index: " << index << std::endl;
+	if (listIndex < 0 || listIndex >= _errorsAndWarnings.size())
+		return;
 	
-	BEntry path("/boot/home/Projects/CMakeHelper/Src/ErrorMessage.h");
-	entry_ref ref;
-	if (path.GetRef(&ref) == B_OK)
-	{
-		be_roster->Launch(&ref);
-	}
+	ErrorMessage errorMessage = _errorsAndWarnings[listIndex];	
+	BEntry path = errorMessage.FilePath();
+	OpenFile(path);	
 }
 
 void MainWindowController::SetMakeFileLocation(BPath& path)
@@ -73,4 +70,13 @@ void MainWindowController::ErrorReceived(ErrorMessage& errorMessage)
 {
 	_errorsAndWarnings.push_back(errorMessage);
 	//NotifyPropertyChanged(kErrorListProperty);
+}
+
+void MainWindowController::OpenFile(BEntry& filePath)
+{
+	entry_ref ref;
+	if (filePath.GetRef(&ref) == B_OK)
+	{
+		be_roster->Launch(&ref);
+	}
 }

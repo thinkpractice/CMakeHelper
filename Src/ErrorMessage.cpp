@@ -1,7 +1,8 @@
 #include "ErrorMessage.h"
 
 ErrorMessage::ErrorMessage(BString& message)
-				: _message(message)
+				: 	_message(message),
+					_filePath("/boot/home/Projects/CMakeHelper/Src/ErrorMessage.h")
 {	
 }
 
@@ -9,7 +10,7 @@ ErrorMessage::~ErrorMessage()
 {
 }
 
-BPath ErrorMessage::FilePath()
+BEntry ErrorMessage::FilePath()
 {
 	return _filePath;
 }
