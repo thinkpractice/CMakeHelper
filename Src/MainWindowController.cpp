@@ -35,6 +35,7 @@ void MainWindowController::CleanMake()
 
 void MainWindowController::ErrorMessageClicked(int32 listIndex)
 {
+	std::cout << "Item Selected at Index:" << listIndex << std::endl;
 	if (listIndex < 0 || listIndex >= _errorsAndWarnings.size())
 		return;
 	
@@ -68,8 +69,7 @@ void MainWindowController::NotifyPropertyChanged(const char* propertyName)
 
 void MainWindowController::ErrorReceived(ErrorMessage& errorMessage)
 {
-	_errorsAndWarnings.push_back(errorMessage);
-	//NotifyPropertyChanged(kErrorListProperty);
+	_errorsAndWarnings.push_back(errorMessage);	
 }
 
 void MainWindowController::OpenFile(BEntry& filePath)

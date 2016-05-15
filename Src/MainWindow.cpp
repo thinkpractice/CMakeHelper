@@ -76,7 +76,7 @@ void MainWindow::MessageReceived(BMessage *message)
 		break;
 		case kItemClickedMessage:
 		{
-			int32 selectedIndex = 0; //_errorsListView->CurrentSelection();
+			int32 selectedIndex = _errorsListView->CurrentSelection();
 			_windowController->ErrorMessageClicked(selectedIndex);
 		}
 		break;
