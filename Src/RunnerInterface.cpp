@@ -24,11 +24,8 @@ void RunnerInterface::SetObserver(RunnerInterfaceObserver* observer)
 
 void RunnerInterface::Run(BPath& path)
 {
-	//BString error = exec("make");
-	BString command = "make";
-	command += " 2>&1"; 
-	
-	BString errors = exec(command.String());
+	BString command = GetMakeCommand(path, "make -C");
+	BString errors = Exec(command.String());
 	
 	BStringList errorList;
 	errors.Split("\n", false, errorList);
@@ -41,7 +38,15 @@ void RunnerInterface::Run(BPath& path)
 	}
 }
 
-BString RunnerInterface::exec(const char* cmd) 
+void RunnerInterface::Clean(BPath& path)
+{
+	BString command = GetMakeCommand(path, "make clean -C");
+	BString error = Exec(command.String());
+	ErrorMessage errorMessage(error);
+	_runnerInterfaceObserver->ErrorReceived(errorMessage);
+}
+
+BString RunnerInterface::Exec(const char* cmd) 
 {
 	std::shared_ptr<FILE> pipe(popen(cmd, "r"), pclose);
     if (!pipe) 
@@ -57,9 +62,16 @@ BString RunnerInterface::exec(const char* cmd)
     return result;
 }
 
-void RunnerInterface::Clean(BPath& path)
+BString RunnerInterface::GetMakeCommand(BPath& path, BString command)
 {
-	BString error = exec("make clean");
-	ErrorMessage errorMessage(error);
-	_runnerInterfaceObserver->ErrorReceived(errorMessage);
+	BString commandWithDirectory = command;
+	
+	BPath makeFilePath;
+	//if ( != B_OK)
+	//	return "";
+	commandWithDirectory += " ";	
+	commandWithDirectory += makeFilePath.Path();
+	commandWithDirectory += " 2>&1"; 	
+	std::cout << commandWithDirectory.String() << std::endl;
+	return commandWithDirectory;
 }

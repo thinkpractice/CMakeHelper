@@ -17,7 +17,8 @@ class RunnerInterface
 		void SetObserver(RunnerInterfaceObserver* observer);
 
 	private:
-		BString exec(const char* cmd);
+		BString Exec(const char* cmd);
+		BString GetMakeCommand(BPath& path, BString command);
 			
 	private:
 		RunnerInterfaceObserver* _runnerInterfaceObserver;
