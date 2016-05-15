@@ -18,7 +18,7 @@ MainWindowController::~MainWindowController()
 
 void MainWindowController::ShowOpenFileDialog()
 {
-	BFilePanel* filePanel = new BFilePanel(B_OPEN_PANEL, &_windowMessenger, NULL);
+	BFilePanel* filePanel = new BFilePanel(B_OPEN_PANEL, &_windowMessenger, NULL, B_DIRECTORY_NODE);
 	filePanel->Show();
 }
 

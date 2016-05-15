@@ -65,12 +65,8 @@ BString RunnerInterface::Exec(const char* cmd)
 BString RunnerInterface::GetMakeCommand(BPath& path, BString command)
 {
 	BString commandWithDirectory = command;
-	
-	BPath makeFilePath;
-	//if ( != B_OK)
-	//	return "";
 	commandWithDirectory += " ";	
-	commandWithDirectory += makeFilePath.Path();
+	commandWithDirectory += path.Path();
 	commandWithDirectory += " 2>&1"; 	
 	std::cout << commandWithDirectory.String() << std::endl;
 	return commandWithDirectory;
