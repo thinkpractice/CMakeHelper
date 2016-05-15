@@ -24,6 +24,7 @@ void MainWindowController::ShowOpenFileDialog()
 
 void MainWindowController::RunMake()
 {
+	_errorsAndWarnings.clear();
 	_runnerInterface->Run(_makeFileLocation);
 	NotifyPropertyChanged(kErrorListProperty);
 }

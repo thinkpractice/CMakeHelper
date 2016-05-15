@@ -102,6 +102,7 @@ void MainWindow::HandlePropertyChanged(BMessage* message)
 	}
 	else if (whichProperty == kErrorListProperty)
 	{
+		_errorsListView->RemoveItems(0, _errorsListView->CountItems());
 		for (ErrorMessage errorMessage : _windowController->ErrorMessages())
 		{
 			BStringItem* errorItem = new BStringItem(errorMessage.Message()); 
