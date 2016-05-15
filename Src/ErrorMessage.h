@@ -8,6 +8,7 @@ class ErrorMessage
 {
 	public:
 		ErrorMessage(BString& message);
+		ErrorMessage(BString& message, BEntry& path);
 		virtual ~ErrorMessage();
 		
 		BEntry FilePath();
