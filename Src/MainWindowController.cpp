@@ -1,5 +1,8 @@
 #include "MainWindowController.h"
 #include <storage/FilePanel.h>
+#include <storage/Entry.h>
+#include <Roster.h>
+#include <iostream>
 #include "Constants.h"
 
 MainWindowController::MainWindowController(BMessenger& windowMessenger,RunnerInterface* runnerInterface)
@@ -29,6 +32,18 @@ void MainWindowController::RunMake()
 void MainWindowController::CleanMake()
 {
 	_runnerInterface->Clean(_makeFileLocation);
+}
+
+void MainWindowController::ErrorMessageClicked(int32 listIndex)
+{
+	std::cout << "Item Clicked at index: " << index << std::endl;
+	
+	BEntry path("/boot/home/Projects/CMakeHelper/Src/ErrorMessage.h");
+	entry_ref ref;
+	if (path.GetRef(&ref) == B_OK)
+	{
+		be_roster->Launch(&ref);
+	}
 }
 
 void MainWindowController::SetMakeFileLocation(BPath& path)

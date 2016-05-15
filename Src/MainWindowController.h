@@ -18,6 +18,7 @@ class MainWindowController : RunnerInterfaceObserver
 		void ShowOpenFileDialog();
 		void RunMake();
 		void CleanMake();
+		void ErrorMessageClicked(int32 listIndex);
 		
 		void SetMakeFileLocation(BPath& path);
 		BPath GetMakeFileLocation();

@@ -7,6 +7,7 @@
 #include <interface/LayoutBuilder.h>
 #include <interface/ListItem.h>
 #include <storage/Entry.h>
+#include <iostream>
 #include "Constants.h"
 #include "ErrorMessage.h"
 
@@ -24,6 +25,7 @@ MainWindow::MainWindow(BRect frame)
 	
 	BBox* errorsBox = new BBox("Errors & Warnings");
 	_errorsListView = new BListView();
+	_errorsListView->SetInvocationMessage(new BMessage(kItemClickedMessage));
 	errorsBox->AddChild(_errorsListView);	
 	
 	BLayoutBuilder::Group<>(this, B_VERTICAL, 0)
@@ -71,6 +73,12 @@ void MainWindow::MessageReceived(BMessage *message)
 		case kCleanMessage:
 		{
 			_windowController->CleanMake();
+		}
+		break;
+		case kItemClickedMessage:
+		{
+			int32 selectedIndex = _errorsListView->CurrentSelection();
+			_windowController->ErrorMessageClicked(selectedIndex);
 		}
 		break;
 		case kPropertyChanged:
