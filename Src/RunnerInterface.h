@@ -4,11 +4,13 @@
 #include <storage/Path.h>
 #include <support/String.h>
 #include "RunnerInterfaceObserver.h"
+#include "CommandLineOutputParser.h"
 
 class RunnerInterface
 {
 	public:
 		RunnerInterface();
+		RunnerInterface(CommandLineOutputParser* commandLineOutputParser);
 		virtual ~RunnerInterface();
 	
 	public:
@@ -22,6 +24,7 @@ class RunnerInterface
 			
 	private:
 		RunnerInterfaceObserver* _runnerInterfaceObserver;
+		CommandLineOutputParser* _commandLineOutputParser;
 		
 };
 

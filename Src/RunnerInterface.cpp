@@ -6,15 +6,22 @@
 #include <sstream>
 #include <memory>
 #include <stdexcept>
-#include <support/StringList.h>
+#include "MakeOutputParser.h"
 
 RunnerInterface::RunnerInterface()
-					: _runnerInterfaceObserver(NULL)
+					: RunnerInterface(new MakeOutputParser)
+{
+}
+
+RunnerInterface::RunnerInterface(CommandLineOutputParser* commandLineOutputParser)
+			:	_runnerInterfaceObserver(NULL),
+				_commandLineOutputParser(commandLineOutputParser)
 {
 }
 
 RunnerInterface::~RunnerInterface()
 {
+	delete _commandLineOutputParser;
 }
 
 void RunnerInterface::SetObserver(RunnerInterfaceObserver* observer)
@@ -27,13 +34,9 @@ void RunnerInterface::Run(BPath& path)
 	BString command = GetMakeCommand(path, "make -C");
 	BString errors = Exec(command.String());
 	
-	BStringList errorList;
-	errors.Split("\n", false, errorList);
-	
-	for (int i = 0; i < errorList.CountStrings(); i++)
+	std::vector<ErrorMessage> errorMessages = _commandLineOutputParser->ParseOutput(errors);
+	for (auto errorMessage : errorMessages)
 	{
-		BString error = errorList.StringAt(i);
-		ErrorMessage errorMessage(error);
 		_runnerInterfaceObserver->ErrorReceived(errorMessage);
 	}
 }

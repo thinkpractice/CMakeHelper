@@ -231,6 +231,33 @@ MainWindowController.cpp.s:
 	$(MAKE) -f CMakeFiles/CMakeHelper.dir/build.make CMakeFiles/CMakeHelper.dir/MainWindowController.cpp.s
 .PHONY : MainWindowController.cpp.s
 
+MakeOutputParser.o: MakeOutputParser.cpp.o
+
+.PHONY : MakeOutputParser.o
+
+# target to build an object file
+MakeOutputParser.cpp.o:
+	$(MAKE) -f CMakeFiles/CMakeHelper.dir/build.make CMakeFiles/CMakeHelper.dir/MakeOutputParser.cpp.o
+.PHONY : MakeOutputParser.cpp.o
+
+MakeOutputParser.i: MakeOutputParser.cpp.i
+
+.PHONY : MakeOutputParser.i
+
+# target to preprocess a source file
+MakeOutputParser.cpp.i:
+	$(MAKE) -f CMakeFiles/CMakeHelper.dir/build.make CMakeFiles/CMakeHelper.dir/MakeOutputParser.cpp.i
+.PHONY : MakeOutputParser.cpp.i
+
+MakeOutputParser.s: MakeOutputParser.cpp.s
+
+.PHONY : MakeOutputParser.s
+
+# target to generate assembly for a file
+MakeOutputParser.cpp.s:
+	$(MAKE) -f CMakeFiles/CMakeHelper.dir/build.make CMakeFiles/CMakeHelper.dir/MakeOutputParser.cpp.s
+.PHONY : MakeOutputParser.cpp.s
+
 RunnerInterface.o: RunnerInterface.cpp.o
 
 .PHONY : RunnerInterface.o
@@ -279,6 +306,9 @@ help:
 	@echo "... MainWindowController.o"
 	@echo "... MainWindowController.i"
 	@echo "... MainWindowController.s"
+	@echo "... MakeOutputParser.o"
+	@echo "... MakeOutputParser.i"
+	@echo "... MakeOutputParser.s"
 	@echo "... RunnerInterface.o"
 	@echo "... RunnerInterface.i"
 	@echo "... RunnerInterface.s"
