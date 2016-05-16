@@ -14,13 +14,13 @@ class RunnerInterface
 		virtual ~RunnerInterface();
 	
 	public:
-		virtual void Run(BPath& path);
-		virtual void Clean(BPath& path);
+		virtual void Run(BEntry& path);
+		virtual void Clean(BEntry& path);
 		void SetObserver(RunnerInterfaceObserver* observer);
 
 	private:
 		BString Exec(const char* cmd);
-		BString GetMakeCommand(BPath& path, BString command);
+		BString GetMakeCommand(BEntry& path, BString command);
 			
 	private:
 		RunnerInterfaceObserver* _runnerInterfaceObserver;

@@ -16,6 +16,16 @@ MainWindowController::~MainWindowController()
 	delete _runnerInterface;
 }
 
+void MainWindowController::Init()
+{
+	//Load AppSettings	
+}
+
+void MainWindowController::QuitRequested()
+{
+	//Save AppSettings
+}
+
 void MainWindowController::ShowOpenFileDialog()
 {
 	BFilePanel* filePanel = new BFilePanel(B_OPEN_PANEL, &_windowMessenger, NULL, B_DIRECTORY_NODE);
@@ -31,6 +41,7 @@ void MainWindowController::RunMake()
 
 void MainWindowController::CleanMake()
 {
+	_errorsAndWarnings.clear();
 	_runnerInterface->Clean(_makeFileLocation);
 }
 
@@ -44,13 +55,13 @@ void MainWindowController::ErrorMessageClicked(int32 listIndex)
 	OpenFile(path);	
 }
 
-void MainWindowController::SetMakeFileLocation(BPath& path)
+void MainWindowController::SetMakeFileLocation(BEntry& path)
 {
 	_makeFileLocation = path;
 	NotifyPropertyChanged(kMakeFileProperty);	
 }
 
-BPath MainWindowController::GetMakeFileLocation()
+BEntry MainWindowController::GetMakeFileLocation()
 {
 	return _makeFileLocation;
 }

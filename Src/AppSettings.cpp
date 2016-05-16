@@ -1,4 +1,5 @@
 #include "AppSettings.h"
+#include <storage/File.h>
 
 #define CHECK_STATUS(status) if (status != B_OK) return status
 
@@ -40,10 +41,29 @@ status_t AppSettings::Archive(BMessage* archive, bool deep) const
 	return B_OK;
 }
 
-BArchivable* AppSettings::Instantiate(BMessage* archive)
+std::shared_ptr<AppSettings> AppSettings::Instantiate(BMessage* archive)
 {
    if ( !validate_instantiation(archive, "AppSettings") )
       return NULL;
-   return new AppSettings(archive);
+   return std::shared_ptr<AppSettings>(new AppSettings(archive));
 }
    
+void AppSettings::Save(AppSettings& settings, BEntry path)
+{
+	BFile settingsFile(&path, B_WRITE_ONLY);
+	
+	BMessage message;
+	settings.Archive(&message);
+	
+	message.Flatten(&settingsFile);
+}
+
+std::shared_ptr<AppSettings> AppSettings::Load(BEntry path)
+{
+	BFile settingsFile(&path, B_READ_ONLY);
+	
+	BMessage message;
+	message.Unflatten(&settingsFile);
+	
+	return AppSettings::Instantiate(&message);
+}		

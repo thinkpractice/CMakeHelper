@@ -1,6 +1,7 @@
 #ifndef MAIN_WINDOW_CONTROLLER_H
 #define MAIN_WINDOW_CONTROLLER_H
 
+#include <memory>
 #include <vector>
 #include <app/Messenger.h>
 #include <storage/Path.h>
@@ -8,6 +9,7 @@
 #include <support/ObjectList.h>
 #include <support/String.h>
 #include "RunnerInterface.h"
+#include "AppSettings.h"
 
 class MainWindowController : RunnerInterfaceObserver
 {
@@ -16,13 +18,15 @@ class MainWindowController : RunnerInterfaceObserver
 		virtual ~MainWindowController();
 	
 	public:
+		void Init();
+		void QuitRequested();
 		void ShowOpenFileDialog();
 		void RunMake();
 		void CleanMake();
 		void ErrorMessageClicked(int32 listIndex);
 		
-		void SetMakeFileLocation(BPath& path);
-		BPath GetMakeFileLocation();
+		void SetMakeFileLocation(BEntry& path);
+		BEntry GetMakeFileLocation();
 		
 		std::vector<ErrorMessage> ErrorMessages();
 		
@@ -34,9 +38,10 @@ class MainWindowController : RunnerInterfaceObserver
 		
 	private:
 		BMessenger _windowMessenger;
-		BPath _makeFileLocation;
+		BEntry _makeFileLocation;
 		std::vector<ErrorMessage> _errorsAndWarnings;
 		RunnerInterface* _runnerInterface;
+		std::shared_ptr<AppSettings> _appSettings;
 };
 
 #endif

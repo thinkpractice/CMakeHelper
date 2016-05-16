@@ -29,7 +29,7 @@ void RunnerInterface::SetObserver(RunnerInterfaceObserver* observer)
 	_runnerInterfaceObserver = observer;
 }
 
-void RunnerInterface::Run(BPath& path)
+void RunnerInterface::Run(BEntry& path)
 {
 	BString command = GetMakeCommand(path, "make -C");
 	BString errors = Exec(command.String());
@@ -41,7 +41,7 @@ void RunnerInterface::Run(BPath& path)
 	}
 }
 
-void RunnerInterface::Clean(BPath& path)
+void RunnerInterface::Clean(BEntry& path)
 {
 	BString command = GetMakeCommand(path, "make clean -C");
 	BString error = Exec(command.String());
@@ -65,8 +65,11 @@ BString RunnerInterface::Exec(const char* cmd)
     return result;
 }
 
-BString RunnerInterface::GetMakeCommand(BPath& path, BString command)
+BString RunnerInterface::GetMakeCommand(BEntry& entry, BString command)
 {
+	BPath path;
+	entry.GetPath(&path);
+	
 	BString commandWithDirectory = command;
 	commandWithDirectory += " ";	
 	commandWithDirectory += path.Path();

@@ -15,6 +15,7 @@ MainWindow::MainWindow(BRect frame)
 {
 	BMessenger windowMessenger(this);
 	_windowController = new MainWindowController(windowMessenger);
+	_windowController->Init();
 
 	_filePathControl = new BTextControl("Makefile Path:", "", new BMessage());
 	
@@ -55,7 +56,7 @@ void MainWindow::MessageReceived(BMessage *message)
 		{
 			entry_ref directoryRef;
 			message->FindRef("refs", &directoryRef);
-			BPath path(&directoryRef); 
+			BEntry path(&directoryRef); 
 			_windowController->SetMakeFileLocation(path);
 		}
 		break;		
@@ -97,7 +98,11 @@ void MainWindow::HandlePropertyChanged(BMessage* message)
 	message->FindString(kPropertyName, &whichProperty);
 	if (whichProperty == kMakeFileProperty)
 	{
-		BPath path = _windowController->GetMakeFileLocation();
+		BEntry entry = _windowController->GetMakeFileLocation();
+		
+		BPath path;
+		entry.GetPath(&path);
+		
 		_filePathControl->SetText(path.Path());
 	}
 	else if (whichProperty == kErrorListProperty)
@@ -113,6 +118,7 @@ void MainWindow::HandlePropertyChanged(BMessage* message)
 
 bool MainWindow::QuitRequested()
 {
+	_windowController->QuitRequested();
 	be_app->PostMessage(B_QUIT_REQUESTED);
 	return BWindow::QuitRequested();	
 }
