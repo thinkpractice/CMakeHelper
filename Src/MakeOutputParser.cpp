@@ -27,13 +27,13 @@ std::vector<ErrorMessage> MakeOutputParser::ParseOutput(BString& commandLineOutp
 	for (int i = 0; i < errorList.CountStrings(); i++)
 	{
 		BString error = errorList.StringAt(i);
-		std::string errorString(error.String());					
+		std::string errorString(error.String());
 		if (error.FindFirst("[100%]") != B_ERROR)
 		{
 			ErrorMessage errorMessage(error);
 			errorMessages.push_back(errorMessage);
 		}
-		else if (std::regex_match(errorString, matches, pathMatcher))
+		else if (std::regex_search(errorString, matches, pathMatcher))
 		{
 			errorMessageString += error;
 			if (!isMatchingError)		
@@ -41,11 +41,9 @@ std::vector<ErrorMessage> MakeOutputParser::ParseOutput(BString& commandLineOutp
 				isMatchingError	= true;
 				continue;
 			}
-			isMatchingError	= false;	
-			std::cout << matches[0] << std::endl;
+			isMatchingError	= false;
 			
-			
-			BEntry filePath(matches[0].str().c_str());					
+			BEntry filePath(matches[1].str().c_str());					
 			ErrorMessage errorMessage(errorMessageString, filePath);
 			errorMessages.push_back(errorMessage);
 		}
