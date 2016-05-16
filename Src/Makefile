@@ -123,6 +123,33 @@ CMakeHelper/fast:
 	$(MAKE) -f CMakeFiles/CMakeHelper.dir/build.make CMakeFiles/CMakeHelper.dir/build
 .PHONY : CMakeHelper/fast
 
+AppSettings.o: AppSettings.cpp.o
+
+.PHONY : AppSettings.o
+
+# target to build an object file
+AppSettings.cpp.o:
+	$(MAKE) -f CMakeFiles/CMakeHelper.dir/build.make CMakeFiles/CMakeHelper.dir/AppSettings.cpp.o
+.PHONY : AppSettings.cpp.o
+
+AppSettings.i: AppSettings.cpp.i
+
+.PHONY : AppSettings.i
+
+# target to preprocess a source file
+AppSettings.cpp.i:
+	$(MAKE) -f CMakeFiles/CMakeHelper.dir/build.make CMakeFiles/CMakeHelper.dir/AppSettings.cpp.i
+.PHONY : AppSettings.cpp.i
+
+AppSettings.s: AppSettings.cpp.s
+
+.PHONY : AppSettings.s
+
+# target to generate assembly for a file
+AppSettings.cpp.s:
+	$(MAKE) -f CMakeFiles/CMakeHelper.dir/build.make CMakeFiles/CMakeHelper.dir/AppSettings.cpp.s
+.PHONY : AppSettings.cpp.s
+
 CMakeHelper.o: CMakeHelper.cpp.o
 
 .PHONY : CMakeHelper.o
@@ -294,6 +321,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... CMakeHelper"
+	@echo "... AppSettings.o"
+	@echo "... AppSettings.i"
+	@echo "... AppSettings.s"
 	@echo "... CMakeHelper.o"
 	@echo "... CMakeHelper.i"
 	@echo "... CMakeHelper.s"

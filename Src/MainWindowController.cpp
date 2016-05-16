@@ -36,7 +36,6 @@ void MainWindowController::CleanMake()
 
 void MainWindowController::ErrorMessageClicked(int32 listIndex)
 {
-	std::cout << "Item Selected at Index:" << listIndex << std::endl;
 	if (listIndex < 0 || listIndex >= _errorsAndWarnings.size())
 		return;
 	
