@@ -18,7 +18,7 @@ class AppSettings : public BArchivable
 		virtual status_t Archive(BMessage* archive, bool deep = true) const;
 		
 		static std::shared_ptr<AppSettings> Instantiate(BMessage* archive);
-		static void Save(AppSettings& settings, BEntry path);
+		static void Save(std::shared_ptr<AppSettings> settings, BEntry path);
 		static std::shared_ptr<AppSettings> Load(BEntry path);
 		
 	private:

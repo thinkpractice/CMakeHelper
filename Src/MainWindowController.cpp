@@ -1,5 +1,6 @@
 #include "MainWindowController.h"
 #include <storage/FilePanel.h>
+#include <storage/FindDirectory.h>
 #include <Roster.h>
 #include <iostream>
 #include "Constants.h"
@@ -18,12 +19,30 @@ MainWindowController::~MainWindowController()
 
 void MainWindowController::Init()
 {
-	//Load AppSettings	
+	BPath settingsPath = GetSettingsPath();
+	
+	BEntry appSettingsPath(settingsPath.Path());
+	if (!appSettingsPath.Exists())	
+	{
+		_appSettings = std::shared_ptr<AppSettings>(new AppSettings);
+		std::cout << "New app settings" << std::endl;
+		return;
+	}	
+	std::cout << "Load app settings" << std::endl;
+	_appSettings = AppSettings::Load(appSettingsPath);
+	
+	BEntry makeFilePath = _appSettings->FilePath();
+	if (makeFilePath.Exists())
+		SetMakeFileLocation(makeFilePath);
 }
 
 void MainWindowController::QuitRequested()
 {
-	//Save AppSettings
+	BPath settingsPath = GetSettingsPath();
+	BEntry appSettingsPath(settingsPath.Path());
+	
+	_appSettings->SetFilePath(_makeFileLocation);
+	AppSettings::Save(_appSettings, appSettingsPath); 
 }
 
 void MainWindowController::ShowOpenFileDialog()
@@ -90,4 +109,12 @@ void MainWindowController::OpenFile(BEntry& filePath)
 	{
 		be_roster->Launch(&ref);
 	}
+}
+
+BPath MainWindowController::GetSettingsPath()
+{
+	BPath appSettingsPath;
+	status_t status = find_directory(B_USER_SETTINGS_DIRECTORY, &appSettingsPath);
+    appSettingsPath.Append("CMakeHelper_settings");		    
+	return appSettingsPath;
 }

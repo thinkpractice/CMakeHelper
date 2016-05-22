@@ -35,6 +35,7 @@ class MainWindowController : RunnerInterfaceObserver
 	
 	private:
 		void OpenFile(BEntry& filePath);
+		BPath GetSettingsPath();
 		
 	private:
 		BMessenger _windowMessenger;
